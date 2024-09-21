@@ -1,3 +1,3 @@
 metric
 -----------
-![image](https://github.com/user-attachments/assets/a2052e15-539b-4367-9531-7af0c280ce84)
+InternVL2-8B | MiniCPM-V 2.6 |	GPT-4o-mini | Qwen2-VL-7B | PaliGemma-3B
