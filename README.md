@@ -1,7 +1,9 @@
 event detection (video)
 -----------
-
-
+- action recognition 
+https://paperswithcode.com/task/action-recognition-in-videos
+- object detection
+https://paperswithcode.com/task/object-detection
 
 VLM - image frame captioning (derived from video)
 -----------
