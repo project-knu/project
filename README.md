@@ -17,12 +17,15 @@ VLM - image frame captioning (derived from video)
 - ![image](https://github.com/user-attachments/assets/e4be103f-e5c9-4476-826d-aa0c2f226657)
 
 - PaliGemma-3B
+- 
 ![image](https://github.com/user-attachments/assets/3a6f6cfa-1c51-4f61-b775-8caf1bdd3b0b)
 
 3개의 사진 CAPTIONING 비교
+
 ![image](https://github.com/user-attachments/assets/41caa1cc-9ae8-42c1-b199-cbe9e4b2aeb2)
 
 프롬프트 : 이미지에 대해 설명해줘
+
 Qwem2-VL-7b
 이 이미지에는 한 남성이 거울 앞에서 사진을 찍고 있는 모습이 있습니다. 남성은 검은색 카메라를 들고 있으며, 그의 옆에 있는 거울에는 그의 반사가 보입니다. 거울 위에는 화분에 심어진 붉은 꽃이 있습니다. 화분은 흰색의 식탁 위에 있으며, 그 옆에는 흰색의 수면대가 있습니다. 배경에는 벽돌 벽과 나무 문이 보입니다.
 
