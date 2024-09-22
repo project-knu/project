@@ -6,7 +6,7 @@ https://paperswithcode.com/task/action-recognition-in-videos
 https://paperswithcode.com/task/object-detection
 
 VLM - image frame captioning (derived from video)
------------
+==========================
 - InternVL2-8B
 - ![image](https://github.com/user-attachments/assets/7cbbcf1c-5463-4ca0-92e3-ef7492ba8206)
 
@@ -20,7 +20,7 @@ VLM - image frame captioning (derived from video)
 - ![image](https://github.com/user-attachments/assets/3a6f6cfa-1c51-4f61-b775-8caf1bdd3b0b)
 
 3개의 사진 CAPTIONING 비교
-
+-----------------
 ![image](https://github.com/user-attachments/assets/41caa1cc-9ae8-42c1-b199-cbe9e4b2aeb2)
 
 프롬프트 : 이미지에 대해 설명해줘
