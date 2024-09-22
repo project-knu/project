@@ -17,8 +17,7 @@ VLM - image frame captioning (derived from video)
 - ![image](https://github.com/user-attachments/assets/e4be103f-e5c9-4476-826d-aa0c2f226657)
 
 - PaliGemma-3B
-- 
-![image](https://github.com/user-attachments/assets/3a6f6cfa-1c51-4f61-b775-8caf1bdd3b0b)
+- ![image](https://github.com/user-attachments/assets/3a6f6cfa-1c51-4f61-b775-8caf1bdd3b0b)
 
 3개의 사진 CAPTIONING 비교
 
