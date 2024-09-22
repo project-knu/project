@@ -37,6 +37,19 @@ InternVL2-Pro
 PaliGemma-3B
 - 화장실 거울 앞에 앉아 있는 꽃.
 
+![NIA_dataset03_000000001519](https://github.com/user-attachments/assets/d757551f-24d6-401d-aa5a-b7ab55cfac82)
+
+프롬프트 : 이미지에 대해 설명해줘
+
+Qwem2-VL-7b
+- 이 이미지에는 주로 주방이나 작은 업무 공간의 모습을 보여줍니다. \n\n- 왼쪽에는 냉장고가 있고, 그 위에 라디오가 놓여져 있습니다
+
+![NIA_dataset02_000000050042](https://github.com/user-attachments/assets/64de671a-1e4b-439c-b379-ed0c4fd26764)
+
+프롬프트 : 이미지에 대해 설명해줘
+
+Qwem2-VL-7b
+이 이미지는 두 개의 동일한 사진을 보여줍니다. 두 사진 모두 테니스 코트에서 두 명의 선수가 있는 장면을 보여줍니다. 선수들은 모두 오렌지색의 티셔츠와 검은색의 반바지를 입고 있으며, 그 중 한 명은 라켓을 들고 있습니다. 코트는 파란색이며, 배경에는 "Rice"라는 글자가 적혀 있습니다. 코트 위에는 테니스 네트가 설치되어 있으며, 코트 위에 떨
 
 LLM - summarization (generated caption to report)
 ====================
