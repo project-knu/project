@@ -150,7 +150,11 @@ class EvalAIAnswerProcessor:
     }
     ARTICLES = ["a", "an", "the"]
     PERIOD_STRIP = re.compile(r"(?!<=\d)(\.)(?!\d)")
+    # text = "Version 3.0 is available. The price is 10.50 dollars." -> Version 3.0 is available The price is 10.50 dollars
+    # 이 정규 표현식은 숫자 사이에 있지 않은 마침표를 찾습니다.
+
     COMMA_STRIP = re.compile(r"(?<=\d)(\,)+(?=\d)")
+    # 이 정규 표현식은 숫자 사이에 있는 쉼표를 찾고, 이를 제거합니다.
     PUNCTUATIONS = [
         ";",
         r"/",
