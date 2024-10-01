@@ -7,6 +7,17 @@ https://paperswithcode.com/task/object-detection
 
 VLM - image frame captioning (derived from video)
 ==========================
+-MoA에 대한 성능 비교
+![image](https://github.com/user-attachments/assets/5db4180f-9f55-42a3-9c37-47fea0a6f0fc)
+
+![image](https://github.com/user-attachments/assets/593d2c6d-e47d-4323-9463-841923ff625d)
+
+('The image features a Motorola smartphone with a sliding QWERTY keyboard, positioned on a textured surface. Here are the key details:\n\n### Key Features:\n- **Screen**: The smartphone has a large touchscreen display that shows a web page, indicating its capability for internet browsing.\n- **Keyboard**: Below the screen, the device includes a full QWERTY keyboard that slides out for easy typing, combining traditional keyboard functionality with modern touchscreen technology.\n- **Branding**: The Motorola logo is prominently displayed on the device, along with the Verizon logo, suggesting it is designed for use on the Verizon wireless network.\n- **Color and Design**: The phone appears predominantly black, giving it a sleek and modern look, typical of smartphones from its era.\n\nThis design reflects the blend of touch and physical typing capabilities, characteristic of older smartphone models, making it a notable device in the evolution of mobile technology.',
+
+The image shows a Motorola smartphone with a slide-out QWERTY keyboard. The device has a large touchscreen display on the top half, which is currently showing a web page. The keyboard below features standard keys, including letters, numbers, and special characters, along with a trackpad on the right side. The phone is branded with the Motorola logo on the top and the Verizon logo on the side. The background appears to be a textured surface, possibly a table or desk.
+
+
+
 - InternVL2-8B
 - ![image](https://github.com/user-attachments/assets/7cbbcf1c-5463-4ca0-92e3-ef7492ba8206)
 
