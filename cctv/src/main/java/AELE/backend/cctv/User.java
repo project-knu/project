@@ -1,14 +1,15 @@
 package AELE.backend.cctv;
 
-//import jakarta.persistence.*;
-/*
+import jakarta.persistence.*;
+
 @Entity
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
     @Column(unique = true)
-    String email;
+    public String email;
 
     public User(){
 
@@ -18,4 +19,3 @@ public class User {
     }
 
 }
-*/

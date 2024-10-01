@@ -10,8 +10,14 @@
 <body>
 <h1>만약 로그인을 성공했다? 넌 여기 온거임 ㅇㅇ</h1>
 <div></div>
+<!-- 이것도 여기에서는 쓸 필요 없음. login 해야만 올 수 있게 수정했으니까-->
 <div sec:authorize="isAuthenticated()">
-<a href="/logout">Logout</a>
+
+    <a href="/logout">Logout</a>
+    <!-- 여기에서 th:text="${#authentication.*}" 써도 되는데 안 쓴 이유는, email 출력이 안되고, name만 됨 + 나중에 dto로 한번에 보낼 때 수정하는게 귀찮아서 -->
+    <h1 th:text="${'이메일 : '+email}"></h1>
+    <a href = "/upload">동영상 업로드 하는 창으로 갈래</a>
+
 </div>
 
 </body>

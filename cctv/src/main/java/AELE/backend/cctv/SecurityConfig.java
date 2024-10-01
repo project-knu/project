@@ -1,5 +1,6 @@
 package AELE.backend.cctv;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -8,9 +9,20 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
 
+/* 이거는 사장된 방식이니까 그만 좀 쓰십시요
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    private final CustomOAuth2SuccessHandler successHandler;
+
+    @Autowired
+    public SecurityConfig(CustomOAuth2SuccessHandler successHandler) {
+        this.successHandler = successHandler;
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -19,9 +31,10 @@ public class SecurityConfig {
 
         //
         http.authorizeHttpRequests((authorize) ->
-                authorize.requestMatchers("/**").permitAll())
+                authorize.requestMatchers("/","/a", "/login").permitAll().anyRequest().authenticated())
                         .oauth2Login((oauth2) -> oauth2.loginPage("/login")
-                                .defaultSuccessUrl("/main",true)
+                                .successHandler(successHandler) // 성공 핸들러 등록했으니
+                                //.defaultSuccessUrl("/main",true) // defulat 핸들러는 뺴주자
                                 .failureUrl("/login?error=true")
 
                         )
