@@ -7,7 +7,8 @@ https://paperswithcode.com/task/object-detection
 
 VLM - image frame captioning (derived from video)
 ==========================
--MoA에 대한 성능 비교
+MoA
+-----------------
 ![image](https://github.com/user-attachments/assets/5db4180f-9f55-42a3-9c37-47fea0a6f0fc)
 
 ![image](https://github.com/user-attachments/assets/593d2c6d-e47d-4323-9463-841923ff625d)
@@ -16,7 +17,9 @@ VLM - image frame captioning (derived from video)
 
 The image shows a Motorola smartphone with a slide-out QWERTY keyboard. The device has a large touchscreen display on the top half, which is currently showing a web page. The keyboard below features standard keys, including letters, numbers, and special characters, along with a trackpad on the right side. The phone is branded with the Motorola logo on the top and the Verizon logo on the side. The background appears to be a textured surface, possibly a table or desk.
 
-
+majority voting
+-------------------
+![image](https://github.com/user-attachments/assets/d44645d2-c757-4e0d-8986-bac5491e65fe)
 
 - InternVL2-8B
 - ![image](https://github.com/user-attachments/assets/7cbbcf1c-5463-4ca0-92e3-ef7492ba8206)
