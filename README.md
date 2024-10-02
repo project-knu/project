@@ -12,7 +12,7 @@ BoN
 --------------------
 ![image](https://github.com/user-attachments/assets/848bf80f-8f2f-4d01-808a-814895961945)
 'The image features a Motorola smartphone with a slide-out keyboard. The device has a large touchscreen display at the top, which is currently showing a webpage. Below the screen, there is a QWERTY keyboard with a variety of keys, including letters, numbers, and special characters. The keyboard also has a touchpad on the right side for navigation. The smartphone is positioned on a textured surface, and it appears to be from an earlier generation of smartphones, highlighting the combination of touchscreen and physical keyboard functionality. The branding of "Motorola" and "Verizon" is visible on the device.',
- 50
+ 501 토큰
  
 MoA
 -----------------
