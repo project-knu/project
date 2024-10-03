@@ -1,5 +1,6 @@
-package AELE.backend.cctv;
+package AELE.backend.cctv.repository;
 
+import AELE.backend.cctv.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 

@@ -21,7 +21,7 @@ public class S3Service {
         this.s3Presigner = s3Presigner;
     }
 
-    String createPresignedUrl(String path) { // presigned 발급해주는 함수
+    public String createPresignedUrl(String path) { // presigned 발급해주는 함수
 
         PutObjectRequest putObjectRequest = PutObjectRequest.builder()//S3에 파일을 업로드할 때 사용되는 요청 객체를 빌더 패턴으로 생성
                 .bucket(bucket)//어떤 bucket에 넣을지

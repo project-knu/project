@@ -1,5 +1,10 @@
-package AELE.backend.cctv;
+package AELE.backend.cctv.controller;
 
+import AELE.backend.cctv.S3Service;
+import AELE.backend.cctv.domain.User;
+import AELE.backend.cctv.domain.Video;
+import AELE.backend.cctv.repository.UserRepository;
+import AELE.backend.cctv.repository.VideoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,10 +43,10 @@ public class VideoController {
             throw new IllegalArgumentException("유저를 찾을 수 없습니다.");
         }
 
-        Optional<Video> video = videoRepository.findByUserIdAndName(user.get().id,filename);
+        Optional<Video> video = videoRepository.findByUserIdAndName(user.get().getId(),filename);
 
         if(video.isEmpty()) {//  만약 일치하는 놈이 없다면
-            String res = s3Service.createPresignedUrl(user.get().id + "/" + filename);//presigned를 받아와서, 단 이때 저장할 경로를 유저id/파일이름
+            String res = s3Service.createPresignedUrl(user.get().getId() + "/" + filename);//presigned를 받아와서, 단 이때 저장할 경로를 유저id/파일이름
             return ResponseEntity.ok(res);
         }
         //만약 일치하는게 있다면 안된다고 보내야함
@@ -63,7 +68,7 @@ public class VideoController {
         System.out.println("url : " + url + " name : " + file_name);//출력 한번 해보기
 
         //이렇게 굳이 email로 안하고 id로 하는 이유는, 한번 데이터 베이스 뒤지는거에 비해서 데이터의 무결성이 올라가기 때문
-        videoRepository.save(new Video(url,file_name,user.get().id)); // 이렇게 기존 video database에 있는지 없는지 check 안 하는 presigned를 발급할 때, 이미 이러한 이름이 없다는 것을 확인 했기 때문입니다
+        videoRepository.save(new Video(url,file_name,user.get().getId())); // 이렇게 기존 video database에 있는지 없는지 check 안 하는 presigned를 발급할 때, 이미 이러한 이름이 없다는 것을 확인 했기 때문입니다
         return "redirect:/upload";
     }
 

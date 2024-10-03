@@ -1,5 +1,7 @@
 package AELE.backend.cctv;
 
+import AELE.backend.cctv.domain.User;
+import AELE.backend.cctv.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
