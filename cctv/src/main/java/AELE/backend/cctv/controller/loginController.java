@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class loginController {
-
-
     private final UserRepository userRepository;
 
     @Autowired // 이거 귀찮으면 롬복 써도 되는데 팀들이 쓰는지 안쓰는지 몰라서 일단 안썼습니다.
@@ -20,7 +18,6 @@ public class loginController {
     }
 
     @GetMapping("/")public String index(){return "login";}
-    @GetMapping("/a") public String a(){return "a";}
     @GetMapping("/login") public String login(){
         return "login";
     }
@@ -34,11 +31,7 @@ public class loginController {
         OAuth2User oauth2User = oauthToken.getPrincipal();
         String email = oauth2User.getAttribute("email");
         model.addAttribute("email", email);
+
         return "main";
     }
-}
-
-// 나중에 정보 보낼 떄 한꺼번에 보내기 위한 dto clss 일단 만들어 두기만 했어요
-class dto_user {
-    public String email;
 }

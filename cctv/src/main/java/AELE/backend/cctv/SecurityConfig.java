@@ -17,11 +17,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 @EnableWebSecurity
 public class SecurityConfig {
 
+    private CustomOAuth2UserService customOAuth2UserService;
     private final CustomOAuth2SuccessHandler successHandler;
 
     @Autowired
-    public SecurityConfig(CustomOAuth2SuccessHandler successHandler) {
+    public SecurityConfig(CustomOAuth2SuccessHandler successHandler, CustomOAuth2UserService customOAuth2UserService) {
         this.successHandler = successHandler;
+        this.customOAuth2UserService = customOAuth2UserService;
     }
 
     @Bean
@@ -31,10 +33,11 @@ public class SecurityConfig {
 
         //
         http.authorizeHttpRequests((authorize) ->
-                authorize.requestMatchers("/","/a", "/login").permitAll().anyRequest().authenticated())
+                authorize.requestMatchers("/", "/login").permitAll().anyRequest().authenticated())
                         .oauth2Login((oauth2) -> oauth2.loginPage("/login")
-                                .successHandler(successHandler) // 성공 핸들러 등록했으니
-                                //.defaultSuccessUrl("/main",true) // defulat 핸들러는 뺴주자
+                                .userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService))// 커스텀 OAuth2UserService 등록 + 이때 데이터 베이스 저장도 같이 진행하도록 함
+                                //.successHandler(successHandler) // 성공 핸들러 등록했으니
+                                .defaultSuccessUrl("/main",true) // defulat 핸들러는 뺴주자
                                 .failureUrl("/login?error=true")
 
                         )

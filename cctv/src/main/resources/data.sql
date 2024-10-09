@@ -1,3 +1,4 @@
+/*
 insert into user(user_id, email, name) values(100, "test100@test100.com", "test100");
 insert into user(user_id, email, name) values(200, "test200@test200.com", "test200");
 
@@ -10,3 +11,5 @@ insert into video_log(log_id, video_id, content, time) values(300, 200, "video_2
 
 insert into video_summary(summary_id, video_id, title, content, created_at, modified_at) values(100, 100, "video_100_summary_title", "video_100_summary_content", now(), now());
 insert into video_summary(summary_id, video_id, title, content, created_at, modified_at) values(200, 200, "video_200_summary_title", "video_200_summary_content", now(), now());
+
+ */

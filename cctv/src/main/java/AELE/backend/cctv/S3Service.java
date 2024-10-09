@@ -29,7 +29,7 @@ public class S3Service {
                 .build();// 객체 완성
 
         PutObjectPresignRequest preSignRequest = PutObjectPresignRequest.builder() // Presigned URL을 생성할 때 필요한 요청 객체를 빌더 패턴으로 생성
-                .signatureDuration(Duration.ofMinutes(3)) // 유효기간(분단위) 3 //
+                .signatureDuration(Duration.ofMinutes(5)) // 유효기간(분단위) 3 //
                 .putObjectRequest(putObjectRequest) // 업로드 할 파일 위치, 버킷 이름 지정
                 .build();
 
