@@ -37,6 +37,7 @@ dependencies {
 	implementation 'io.awspring.cloud:spring-cloud-aws-starter-s3:3.1.1'// WS S3 기능 사용하려고
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok' // lombok
+	implementation 'org.springframework.boot:spring-boot-starter-mail'// 메일 보내는 추가
 }
 
 tasks.named('test') {
