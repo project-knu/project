@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <div class="summary-area">
       <HomeButton />
       <VideoPlayer />
@@ -11,7 +11,7 @@
     </div>
   </template>
   
-  <script>
+  <script setup>
   import HomeButton from './HomeButton.vue';
   import VideoPlayer from './VideoPlayer.vue';
   import SummaryTitle from './SummaryTitle.vue';
@@ -35,3 +35,24 @@
     }
   }
   </script>
+
+<style scoped>
+.summary-area {
+  /* 레이아웃 */
+  position: absolute;
+  top: 64px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-y: auto;
+  z-index: 1;
+  
+  width: 100%;
+  height: 150%;
+
+  /* 하위 레이아웃 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+</style> -->

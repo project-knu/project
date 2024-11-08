@@ -1,3 +1,6 @@
+<script setup>
+</script>
+
 <template>
     <div class="header">
       <div class="logo">
@@ -8,7 +11,7 @@
     </div>
   </template>
   
-  <script>
+  <!-- <script>
   export default {
     name: 'Header',
     data() {
@@ -22,4 +25,21 @@
       }
     }
   }
-  </script>
+  </script> -->
+
+<style scoped>
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  border-bottom: 1px solid #D9D9D9;
+  z-index: 10;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+</style>

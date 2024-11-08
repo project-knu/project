@@ -8,13 +8,13 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'HomeButton',
-  methods: {
-    goToHome() {
-      this.$router.push('/');
-    }
-  }
-}
+<script setup>
+// export default {
+//   name: 'HomeButton',
+//   methods: {
+//     goToHome() {
+//       this.$router.push('/');
+//     }
+//   }
+// }
 </script>
