@@ -1,6 +1,6 @@
 package AELE.backend.cctv.controller;
 
-import AELE.backend.cctv.CustomOAuth2User;
+import AELE.backend.cctv.auth.CustomOAuth2User;
 import AELE.backend.cctv.DTO.*;
 import AELE.backend.cctv.domain.User;
 import AELE.backend.cctv.domain.Video;
@@ -12,9 +12,7 @@ import AELE.backend.cctv.repository.VideoRepository;
 import AELE.backend.cctv.repository.VideoSummaryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 

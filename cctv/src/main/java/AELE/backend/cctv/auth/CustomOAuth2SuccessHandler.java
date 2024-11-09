@@ -1,4 +1,4 @@
-package AELE.backend.cctv;
+package AELE.backend.cctv.auth;
 
 import AELE.backend.cctv.domain.User;
 import AELE.backend.cctv.repository.UserRepository;
