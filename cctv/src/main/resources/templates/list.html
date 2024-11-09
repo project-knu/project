@@ -44,9 +44,9 @@
 <th:block th:if="${videos != null && !videos.isEmpty()}">
     <div th:each="video : ${videos}">
         <img alt = "이미지임 ㅇㅇ " th:src="${video.url}">
-        <p th:text = "${'video 이름 : ' + video.videoName}"></p>
+        <p th:text = "${'video 이름 : ' + video.name}"></p>
         <p th:text="${'생성 날짜 : ' + video.createdAt}"></p>
-        <p th:text="${'보고서 내용 : ' + video.videoSummaryContent}"></p>
+        <p th:text="${'보고서 내용 : ' + video.summaryContent}"></p>
         <a th:href="@{'/detail/' + ${video.videoId} }"> 자세히 보기 </a>
         <p>---------------------------------------------------------------------</p>
     </div>

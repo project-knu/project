@@ -32,10 +32,11 @@ import java.util.Optional;
 public class VideoController {
 
     /*
-     응답 데이터로 VideoDTO / VideoLogDTO 보냄 (다른 것들도 나중에 DTO 변경 고려)
      응답 데이터 줄 때 https://wildeveloperetrain.tistory.com/240
-     위 링크에 'JSON Body만 사용하는 방식 (HTTP Status Code는 항상 200)' 참고하면 좋을 거 같습니다 (아직 구현은 안 했음)
-     Pageable - page size sort 추가 고려 (pageDTO) - 마지막에 테스트 함수 있음
+     위 링크에 'JSON Body만 사용하는 방식 (HTTP Status Code는 항상 200)' 참고하면 좋을 거 같습니다
+
+     * ResponseDTO 구현함
+       프론트랑 연동할 때, 반환형 ResponseDTO로 바꾸고, return ResponseDTO.toDTO(VideoDTOList) 나 toDTO(videoDetailDTO) 하면 됨.
 
 
     추가) test 해보려고 html로 redirect 시켰음(이게 더 빠르게 확인 가능해서 나중에 react랑 연동할 때는 return 값만 바꾸면 됨
@@ -50,19 +51,15 @@ public class VideoController {
     private final VideoSummaryRepository videoSummaryRepository;
 
     @GetMapping("/list")
-    public String video_list(@AuthenticationPrincipal CustomOAuth2User customUser, Model model, @ModelAttribute PageDTO pageDTO){ // 동영상 list 보여줌
-        User user = customUser.getUser(); // custom해서 처음으로 사용하는 따근 따끈한 user, 여기에 user 정보 다 집어 넣음, 그리고 정보는 무조건 들어있습니다
+    public String video_list(@AuthenticationPrincipal CustomOAuth2User customUser, Model model, @ModelAttribute PageDTO pageDTO){
+        User user = customUser.getUser();
 
-        // front_end가 지은 페이지 디자인에서는 video url들의 list, 생성 날짜, 보고서 이름, 보거서 내용 필요하나
-        // 일단은 video_url, video_name, video_date만 보내자
-
-        // one to many 하는 방법으로 가져오되, 쿼리문으로 만든 방법 써서 N+1문제 해결하고, 보고서 내용도 같이 가져옴
         Pageable pageable = pageDTO.getP() == 1 ? PageDTO.toPageRequest(pageDTO) : null;
         List<Video> video_list = videoRepository.findAllByUserIdWithSummary(user.getId(), pageable);
 
-        List<VideoDTO> videoDTOList = new ArrayList<>(); // 정보를 보내줄 DTO
-        for(Video v : video_list){// 여기서 마지막에 videoSummary content를 안한건 보고서 생성은 AI가 해줘야하는데, 아직 구현을 안해서 그냥 암거나 집어 넣음
-            videoDTOList.add(VideoDTO.toDTO(v.getId(),v.getName(),v.getUrl(),v.getCreatedAt(),v.getVideoSummary().getContent()));
+        List<VideoDTO> videoDTOList = new ArrayList<>();
+        for(Video v : video_list){
+            videoDTOList.add(VideoDTO.toDTO(v, v.getVideoSummary()));
         }
 
         model.addAttribute("videos",videoDTOList);
@@ -75,14 +72,14 @@ public class VideoController {
         User user = customUser.getUser();
         Optional<Video> v = videoRepository.findByIdAndUserIdWithSummary(videoId,user.getId());
         if(v.isEmpty()) {
-            throw new Exception();
+            throw new Exception(); // return ResponseDTO.toDTO("error", "such video not exists");
         }
         Video video = v.get();
+        // 로그 가져올 때 시간 순으로 가져오기
+        List<VideoLog> videoLogs = new ArrayList<>(); // 이것도 AI와 연동해서 만들어야하는데 아직 연동이 안되었기에 그냥 빈 친구 넣어서 줄꺼임
 
-        List<VideoLog> videoLogs = new ArrayList<>();// 이것도 AI와 연동해서 만들어야하는데 아직 연동이 안되었기에 그냥 빈 친구 넣어서 줄꺼임
-
-        VideoDTO2 videoDTO2 = VideoDTO2.toDTO2(video.getId(),video.getName(),video.getUrl(),video.getCreatedAt(),video.getVideoSummary().getContent(),videoLogs);
-        model.addAttribute("video",videoDTO2);
+        VideoDetailDTO videoDetailDTO = VideoDetailDTO.toDTO(video, video.getVideoSummary(), videoLogs);
+        model.addAttribute("video", videoDetailDTO);
 
         return "detail";
     }
@@ -90,7 +87,7 @@ public class VideoController {
 
     //  영상 검색에는 날짜 검색 or content 검색 이 2가지로 분류
     @GetMapping("/search")
-    public String videoSearch( // 여기서 String으로 redirect 시키는건 개발할 때 한눈에 보기 쉽게 할려고 하는거임. 나중에 구현할 때는 json 방식으로 데이터 보내서 react에서 처리하도록 할꺼임
+    public String videoSearch(
                                        @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
                                        @RequestParam(value = "start", required = false, defaultValue = "1970-01-01") LocalDate start,
                                        @RequestParam(value = "end", required = false, defaultValue = "2999-12-31") LocalDate end,
@@ -119,9 +116,7 @@ public class VideoController {
         List<VideoDTO> videoDTOList = new ArrayList<VideoDTO>();
 
         for (VideoSummary vs : videoSummaryList) {
-            Video video = vs.getVideo(); // VideoSummary에서 Video 가져옴
-            VideoDTO dto = VideoDTO.toDTO(video.getId(), video.getName(), video.getUrl(), video.getCreatedAt(),vs.getContent());
-            videoDTOList.add(dto); // DTO 리스트에 추가
+            videoDTOList.add(VideoDTO.toDTO(vs.getVideo(), vs));
         }
 
         model.addAttribute("videos", videoDTOList);
