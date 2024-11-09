@@ -1,89 +1,147 @@
 package AELE.backend.cctv.controller;
 
-import AELE.backend.cctv.S3Service;
+import AELE.backend.cctv.auth.CustomOAuth2User;
+import AELE.backend.cctv.DTO.*;
 import AELE.backend.cctv.domain.User;
 import AELE.backend.cctv.domain.Video;
+import AELE.backend.cctv.domain.VideoLog;
 import AELE.backend.cctv.domain.VideoSummary;
 import AELE.backend.cctv.repository.UserRepository;
+import AELE.backend.cctv.repository.VideoLogRepository;
 import AELE.backend.cctv.repository.VideoRepository;
 import AELE.backend.cctv.repository.VideoSummaryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
+@RequiredArgsConstructor
+//@ResponseBody
+//@RequestMapping("/videos")
+//@Transactional
 public class VideoController {
 
-    private final S3Service s3Service;
-    private final VideoRepository videoRepository;
+    /*
+     응답 데이터로 VideoDTO / VideoLogDTO 보냄 (다른 것들도 나중에 DTO 변경 고려)
+     응답 데이터 줄 때 https://wildeveloperetrain.tistory.com/240
+     위 링크에 'JSON Body만 사용하는 방식 (HTTP Status Code는 항상 200)' 참고하면 좋을 거 같습니다 (아직 구현은 안 했음)
+     Pageable - page size sort 추가 고려 (pageDTO) - 마지막에 테스트 함수 있음
+
+
+    추가) test 해보려고 html로 redirect 시켰음(이게 더 빠르게 확인 가능해서 나중에 react랑 연동할 때는 return 값만 바꾸면 됨
+         그리고 내가 봤을 때 이해 안되는 부분은 주석 처리 한다음 일요일날 마지막으로 구현하는게 목표
+         그리고 위에 어노테이션 몇개 주석 처리했으니까 나중에 확인
+    */
+
+
     private final UserRepository userRepository;
+    private final VideoRepository videoRepository;
+    private final VideoLogRepository videoLogRepository;
     private final VideoSummaryRepository videoSummaryRepository;
 
-    @Autowired
-    public VideoController(S3Service s3Service, VideoRepository videoRepository,UserRepository userRepository, VideoSummaryRepository videoSummaryRepository){
-        this.s3Service = s3Service;
-        this.videoRepository = videoRepository;
-        this.userRepository = userRepository;
-        this.videoSummaryRepository = videoSummaryRepository;
+    @GetMapping("/list")
+    public String video_list(@AuthenticationPrincipal CustomOAuth2User customUser, Model model, @ModelAttribute PageDTO pageDTO){ // 동영상 list 보여줌
+        User user = customUser.getUser(); // custom해서 처음으로 사용하는 따근 따끈한 user, 여기에 user 정보 다 집어 넣음, 그리고 정보는 무조건 들어있습니다
+
+        // front_end가 지은 페이지 디자인에서는 video url들의 list, 생성 날짜, 보고서 이름, 보거서 내용 필요하나
+        // 일단은 video_url, video_name, video_date만 보내자
+
+        // one to many 하는 방법으로 가져오되, 쿼리문으로 만든 방법 써서 N+1문제 해결하고, 보고서 내용도 같이 가져옴
+        Pageable pageable = pageDTO.getP() == 1 ? PageDTO.toPageRequest(pageDTO) : null;
+        List<Video> video_list = videoRepository.findAllByUserIdWithSummary(user.getId(), pageable);
+
+        List<VideoDTO> videoDTOList = new ArrayList<>(); // 정보를 보내줄 DTO
+        for(Video v : video_list){// 여기서 마지막에 videoSummary content를 안한건 보고서 생성은 AI가 해줘야하는데, 아직 구현을 안해서 그냥 암거나 집어 넣음
+            videoDTOList.add(VideoDTO.toDTO(v.getId(),v.getName(),v.getUrl(),v.getCreatedAt(),v.getVideoSummary().getContent()));
+        }
+
+        model.addAttribute("videos",videoDTOList);
+
+        return "list";
     }
+    @GetMapping("/detail/{videoId}")
+    public String video_detail(@AuthenticationPrincipal CustomOAuth2User customUser, @PathVariable Long videoId, Model model) throws Exception { // 동영상 새부 내용
 
-    @GetMapping("/upload") public String upload_page() {return "upload";}
-
-
-    @GetMapping("/presigned-url")
-    @ResponseBody
-    public ResponseEntity<String> geturl(@AuthenticationPrincipal OAuth2User principal,@RequestParam String filename){// presigned-url을 요청하면 주는 함수
-        String email = principal.getAttribute("email"); // 접속한 유저 email 가져오고
-        Optional<User> user = userRepository.findByEmail(email);// email로 data base user 정보에서 가져오고
-
-        if(user.isEmpty()){ // 사실 로그인한 유저에서 정보를 가져온거기 때문에 + 로그인 해야만 여기 페이지로 올 수있으니까, 로그인 할떄, 정보가 이미 있다. 그래서 오류가 뜰 것같지 않지만 일단 모르니까
-            throw new IllegalArgumentException("유저를 찾을 수 없습니다.");
+        User user = customUser.getUser();
+        Optional<Video> v = videoRepository.findByIdAndUserIdWithSummary(videoId,user.getId());
+        if(v.isEmpty()) {
+            throw new Exception();
         }
+        Video video = v.get();
 
-        Optional<Video> video = videoRepository.findByUserIdAndName(user.get().getId(),filename);
+        List<VideoLog> videoLogs = new ArrayList<>();// 이것도 AI와 연동해서 만들어야하는데 아직 연동이 안되었기에 그냥 빈 친구 넣어서 줄꺼임
 
-        if(video.isEmpty()) {//  만약 일치하는 놈이 없다면
-            String res = s3Service.createPresignedUrl(user.get().getId() + "/" + filename);//presigned를 받아와서, 단 이때 저장할 경로를 유저id/파일이름
-            return ResponseEntity.ok(res);
-        }
-        //만약 일치하는게 있다면 안된다고 보내야함
-        return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 파일이 있어서 추가할 수 없습니다.");
-    }
+        VideoDTO2 videoDTO2 = VideoDTO2.toDTO2(video.getId(),video.getName(),video.getUrl(),video.getCreatedAt(),video.getVideoSummary().getContent(),videoLogs);
+        model.addAttribute("video",videoDTO2);
 
-    @PostMapping("/save")
-    public String video_metadata_save(@AuthenticationPrincipal OAuth2User principal, @RequestBody Map<String, Object> videoMetadata){//POST로 오는 데이터를 받는 곳, 저장한 곳의 링크 + 올린파일 이름
-        String url = (String) videoMetadata.get("url");
-        String file_name = (String) videoMetadata.get("file_name");
-
-        String email = principal.getAttribute("email");//로그인한 유저 정보(email) 가져오고
-        Optional<User> user = userRepository.findByEmail(email);// 그걸로 data base에서 가져오고
-
-        if(user.isEmpty()){ // 사실 로그인한 유저에서 정보를 가져온거기 때문에, 로그인 할떄, 정보가 이미 있다. 그래서 오류가 뜰 것같지 않지만 일단 모르니까
-            throw new IllegalArgumentException("유저를 찾을 수 없습니다.");
-        }
-
-        System.out.println("url : " + url + " name : " + file_name);//출력 한번 해보기
-
-        //이렇게 굳이 email로 안하고 id로 저장하는 이유는, 한번 데이터 베이스 뒤지는거에 비해서 데이터의 무결성이 올라가기 때문
-        Video video = new Video(url,file_name,user.get().getId());
-        videoRepository.save(video); // 이렇게 기존 video database에 있는지 없는지 check 안 하는 presigned를 발급할 때, 이미 이러한 이름이 없다는 것을 확인 했기 때문입니다
-
-
-        /////////////////test를 위해 집어넣ㅇ느 코드입니다. videosummary를 AI에서 제작하고 그걸 넣는 코드를 완성하면 지우십쇼/////////////////////////
-        String content = "this is test code by " + file_name + "is present";
-        videoSummaryRepository.save(new VideoSummary(video, content));
-        /////////////////////////////////////////
-
-        return "redirect:/upload";
+        return "detail";
     }
 
 
+    //  영상 검색에는 날짜 검색 or content 검색 이 2가지로 분류
+    @GetMapping("/search")
+    public String videoSearch( // 여기서 String으로 redirect 시키는건 개발할 때 한눈에 보기 쉽게 할려고 하는거임. 나중에 구현할 때는 json 방식으로 데이터 보내서 react에서 처리하도록 할꺼임
+                                       @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
+                                       @RequestParam(value = "start", required = false, defaultValue = "1970-01-01") LocalDate start,
+                                       @RequestParam(value = "end", required = false, defaultValue = "2999-12-31") LocalDate end,
+                                       @AuthenticationPrincipal CustomOAuth2User customUser, Model model, @ModelAttribute PageDTO pageDTO
+    )
+    {
 
+        // keyword + 날짜 아무것도 안정했으면 브라우저에서 그냥 data 안보내게 설정해놓을 꺼니, 무조건 keyword나 날짜 둘중 한개는 들어와 있음
+
+        User user = customUser.getUser();
+
+        LocalDateTime starttime = start.atStartOfDay(); // 정한 시작일의 0시 0분 0초 이거
+        LocalDateTime endtime = end.atTime(LocalTime.MAX); // 정한 끝나는 날의 23:59:59 이거 정하고
+
+        Pageable pageable = (pageDTO.getP() == 1) ?  PageDTO.toPageRequest(pageDTO) : null;
+
+        List<VideoSummary> videoSummaryList;
+
+        if(keyword.isEmpty()) { // 그냥 날짜로만 검색
+            videoSummaryList = videoSummaryRepository.findAllByCreatedAtBetweenAndUserId(starttime,endtime,user.getId(), pageable);
+        }
+        else{ // 보고서 내용으로만 검색
+            videoSummaryList = videoSummaryRepository.findAllByContentContainingAndCreatedAtBetweenAndUserId(keyword,starttime,endtime,user.getId(), pageable);
+        }
+
+        List<VideoDTO> videoDTOList = new ArrayList<VideoDTO>();
+
+        for (VideoSummary vs : videoSummaryList) {
+            Video video = vs.getVideo(); // VideoSummary에서 Video 가져옴
+            VideoDTO dto = VideoDTO.toDTO(video.getId(), video.getName(), video.getUrl(), video.getCreatedAt(),vs.getContent());
+            videoDTOList.add(dto); // DTO 리스트에 추가
+        }
+
+        model.addAttribute("videos", videoDTOList);
+
+        return "list";
+    }
+
+
+/*
+    /* 이건 일단 주석처리하고 만들죠
+
+    //보고서 수정 : title , content 수정
+    @PostMapping("/{videoId}/summary/edit")
+    public VideoSummaryDTO editVideoSummary(@PathVariable("videoId") Long videoId, @RequestBody VideoSummaryForm form) {
+        Optional<VideoSummary> summary = videoSummaryRepository.findById(form.getId());
+        if (summary.isPresent() && checkUserWithVideo(tempUser(), summary.get().getVideo())) {
+            summary.get().update(form.getTitle(), form.getContent());
+            return VideoSummaryDTO.toDTO(summary.get());
+        }
+        return null;
+    }
+*/
 }
