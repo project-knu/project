@@ -72,7 +72,7 @@ old_next.onclick = () => { old_page++; get_old_videos(); }
 // 검색 결과
 let search_page = 0;
 const get_search_videos = () => {
-    let keyword = document.querySelector("#keyword").value;
+    let keyword = document.querySelector("#searchCond").value;
     let search_date = null;
     if(document.querySelector('.selected')) {
         search_date = currentDate
@@ -93,7 +93,7 @@ search_previous.onclick = () => { if(search_page > 0) {search_page--; get_search
 search_next.onclick = () => { search_page++; get_search_videos(); }
 
 // 키워드 검색
-const search_button = document.querySelector("#search-button");
+const search_button = document.querySelector(".search-button");
 search_button.onclick = () => {
     search_page = 0;
     get_search_videos();
