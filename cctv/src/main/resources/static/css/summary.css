@@ -193,3 +193,48 @@ body {
     margin: 0;
     padding: 0;
 }
+
+.logo-letter {
+    font-family: Pretendard;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 22px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: black;
+}
+
+.login:hover {
+    background-color: #f0f0f0;
+    border: 1px solid #007bff;
+}
+
+.video:hover {
+    border: 1px solid #007bff;
+}
+
+.summary-title:hover {
+    border: 1px solid #007bff;
+}
+
+.summary-date:hover {
+    border: 1px solid #007bff;
+}
+
+.summary-content:hover {
+    border: 1px solid #007bff;
+}
+
+.summary-create-date:hover {
+    border: 1px solid #007bff;
+}
+
+.summary-log:hover {
+    border: 1px solid #007bff;
+}
+
+.summary-location:hover {
+    border: 1px solid #007bff;
+}
+
+

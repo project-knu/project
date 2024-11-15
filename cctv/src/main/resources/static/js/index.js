@@ -93,7 +93,7 @@ search_previous.onclick = () => { if(search_page > 0) {search_page--; get_search
 search_next.onclick = () => { search_page++; get_search_videos(); }
 
 // 키워드 검색
-const search_button = document.querySelector(".search-button");
+const search_button = document.querySelector('.search-button');
 search_button.onclick = () => {
     search_page = 0;
     get_search_videos();
