@@ -6,9 +6,7 @@ import lombok.Getter;
 @Getter
 public class VideoSummaryForm {
 
-    private Long id;
-
-    private String title;
+    private String name;
 
     private String content;
 

@@ -30,4 +30,8 @@ public class Video extends BaseEntity { // video에 대한 url과 이름
         this.userId = userId;
     }
 
+    public void update(String name) {
+        this.name = name;
+    }
+
 }

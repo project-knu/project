@@ -32,17 +32,17 @@ public class SecurityConfig {
 
         //
         http.authorizeHttpRequests((authorize) ->
-                authorize.requestMatchers("/", "/login").permitAll().anyRequest().authenticated())
-                        .oauth2Login((oauth2) -> oauth2.loginPage("/login")
+                authorize.requestMatchers("/", "/login.html").permitAll().anyRequest().authenticated())
+                        .oauth2Login((oauth2) -> oauth2.loginPage("/login.html")
                                 .userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService))// 커스텀 OAuth2UserService 등록 + 이때 데이터 베이스 저장도 같이 진행하도록 함
                                 //.successHandler(successHandler) // 성공 핸들러 등록했으니
-                                .defaultSuccessUrl("/main",true) // defulat 핸들러는 뺴주자
-                                .failureUrl("/login?error=true")
+                                .defaultSuccessUrl("/index.html",true) // defulat 핸들러는 뺴주자
+                                .failureUrl("/login.html?error=true")
 
                         )
                 .logout((logout) -> logout
                         .logoutUrl("/logout")  // 로그아웃 요청 URL
-                        .logoutSuccessUrl("/login")  // 로그아웃 성공 후 리디렉션 경로
+                        .logoutSuccessUrl("/login.html")  // 로그아웃 성공 후 리디렉션 경로
                         .invalidateHttpSession(true)  // 세션 무효화
                         .deleteCookies("JSESSIONID")
                 );

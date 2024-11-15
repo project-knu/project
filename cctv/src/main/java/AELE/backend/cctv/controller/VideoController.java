@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,9 +27,8 @@ import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
-//@ResponseBody
-//@RequestMapping("/videos")
-//@Transactional
+@ResponseBody
+@Transactional
 public class VideoController {
 
     /*
@@ -51,7 +51,9 @@ public class VideoController {
     private final VideoSummaryRepository videoSummaryRepository;
 
     @GetMapping("/list")
-    public String video_list(@AuthenticationPrincipal CustomOAuth2User customUser, Model model, @ModelAttribute PageDTO pageDTO){
+//    public String video_list(@AuthenticationPrincipal CustomOAuth2User customUser, Model model, @ModelAttribute PageDTO pageDTO){
+    public ResponseDTO video_list(@AuthenticationPrincipal CustomOAuth2User customUser, @ModelAttribute PageDTO pageDTO){
+
         User user = customUser.getUser();
 
         Pageable pageable = pageDTO.getP() == 1 ? PageDTO.toPageRequest(pageDTO) : null;
@@ -62,12 +64,15 @@ public class VideoController {
             videoDTOList.add(VideoDTO.toDTO(v, v.getVideoSummary()));
         }
 
-        model.addAttribute("videos",videoDTOList);
+        return ResponseDTO.toDTO(videoDTOList);
 
-        return "list";
+//        model.addAttribute("videos",videoDTOList);
+//
+//        return "list";
     }
     @GetMapping("/detail/{videoId}")
-    public String video_detail(@AuthenticationPrincipal CustomOAuth2User customUser, @PathVariable Long videoId, Model model) throws Exception { // 동영상 새부 내용
+//    public String video_detail(@AuthenticationPrincipal CustomOAuth2User customUser, @PathVariable Long videoId, Model model) throws Exception { // 동영상 새부 내용
+    public ResponseDTO video_detail(@AuthenticationPrincipal CustomOAuth2User customUser, @PathVariable Long videoId) throws Exception { // 동영상 새부 내용
 
         User user = customUser.getUser();
         Optional<Video> v = videoRepository.findByIdAndUserIdWithSummary(videoId,user.getId());
@@ -79,19 +84,24 @@ public class VideoController {
         List<VideoLog> videoLogs = new ArrayList<>(); // 이것도 AI와 연동해서 만들어야하는데 아직 연동이 안되었기에 그냥 빈 친구 넣어서 줄꺼임
 
         VideoDetailDTO videoDetailDTO = VideoDetailDTO.toDTO(video, video.getVideoSummary(), videoLogs);
-        model.addAttribute("video", videoDetailDTO);
 
-        return "detail";
+        return ResponseDTO.toDTO(videoDetailDTO);
+
+//        model.addAttribute("video", videoDetailDTO);
+//
+//        return "detail";
     }
 
 
     //  영상 검색에는 날짜 검색 or content 검색 이 2가지로 분류
     @GetMapping("/search")
-    public String videoSearch(
-                                       @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
-                                       @RequestParam(value = "start", required = false, defaultValue = "1970-01-01") LocalDate start,
-                                       @RequestParam(value = "end", required = false, defaultValue = "2999-12-31") LocalDate end,
-                                       @AuthenticationPrincipal CustomOAuth2User customUser, Model model, @ModelAttribute PageDTO pageDTO
+
+//    public String videoSearch(
+    public ResponseDTO videoSearch(
+            @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
+            @RequestParam(value = "start", required = false, defaultValue = "1970-01-01") LocalDate start,
+            @RequestParam(value = "end", required = false, defaultValue = "2999-12-31") LocalDate end,
+            @AuthenticationPrincipal CustomOAuth2User customUser, Model model, @ModelAttribute PageDTO pageDTO
     )
     {
 
@@ -119,24 +129,29 @@ public class VideoController {
             videoDTOList.add(VideoDTO.toDTO(vs.getVideo(), vs));
         }
 
-        model.addAttribute("videos", videoDTOList);
+        return ResponseDTO.toDTO(videoDTOList);
 
-        return "list";
+
+//        model.addAttribute("videos", videoDTOList);
+//
+//        return "list";
     }
 
 
-/*
-    /* 이건 일단 주석처리하고 만들죠
-
-    //보고서 수정 : title , content 수정
-    @PostMapping("/{videoId}/summary/edit")
-    public VideoSummaryDTO editVideoSummary(@PathVariable("videoId") Long videoId, @RequestBody VideoSummaryForm form) {
-        Optional<VideoSummary> summary = videoSummaryRepository.findById(form.getId());
-        if (summary.isPresent() && checkUserWithVideo(tempUser(), summary.get().getVideo())) {
-            summary.get().update(form.getTitle(), form.getContent());
-            return VideoSummaryDTO.toDTO(summary.get());
+    @PostMapping("/detail/{videoId}/edit")
+    public ResponseDTO edit(@AuthenticationPrincipal CustomOAuth2User customUser, @PathVariable("videoId") Long videoId, @RequestBody VideoSummaryForm form) {
+        User user = customUser.getUser();
+        Optional<Video> v = videoRepository.findByIdAndUserIdWithSummary(videoId,user.getId());
+        if(v.isEmpty()) {
+            return ResponseDTO.toDTO("error", "no video");
         }
-        return null;
+        Video video = v.get();
+        VideoSummary videoSummary = video.getVideoSummary();
+
+        video.update(form.getName());
+        videoSummary.update(form.getContent());
+
+        VideoDetailDTO videoDetailDTO = VideoDetailDTO.toDTO(video, videoSummary, new ArrayList<>());
+        return ResponseDTO.toDTO(videoDetailDTO);
     }
-*/
 }

@@ -24,7 +24,7 @@ public class VideoDTO {
                 .name(v.getName())
                 .url(v.getUrl())
                 .createdAt(v.getCreatedAt())
-                .summaryContent("Video Summary") // AI 연동 후에 vs.getContent()로 수정하기
+                .summaryContent(vs.getContent())
                 .build();
     }
 }
