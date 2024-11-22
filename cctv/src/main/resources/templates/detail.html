@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<h1> 동여상에 대해 자세하게 풀어보겠습니다 </h1>
+
+<div>
+    <img alt = "이미지임 ㅇㅇ " th:src="${video.url}">
+    <p th:text = "${'video 이름 : ' + video.name}"></p>
+    <p th:text="${'생성 날짜 : ' + video.createdAt}"></p>
+
+    <h4>보고서</h4>
+
+    <h4>보고서 로그들 출력하게 하고 싶은데</h4>
+
+    <p th:if="${#lists.isEmpty(video.logList)}">아무것도 없습니다</p>
+
+    <ul th:if="${!#lists.isEmpty(video.logList)}">
+        <li th:each="log : ${video.logList}">
+            <span th:text="${log.content}">Video Log</span>
+        </li>
+    </ul>
+
+    <p>---------------------------------------------------------------------</p>
+</div>
+
+</body>
+</html>

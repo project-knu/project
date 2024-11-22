@@ -1,0 +1,74 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+
+HELP.md
+cctv/.gradle/
+cctv/build/
+!cctv/gradle/wrapper/gradle-wrapper.jar
+!cctv/src/main/**/build/
+!cctv/src/test/**/build/
+
+### STS ###
+cctv/.apt_generated
+cctv/.classpath
+cctv/.factorypath
+cctv/.project
+cctv/.settings
+cctv/.springBeans
+cctv/.sts4-cache
+cctv/bin/
+!cctv/src/main/**/bin/
+!cctv/src/test/**/bin/
+
+### IntelliJ IDEA ###
+cctv/.idea/
+cctv/*.iws
+cctv/*.iml
+cctv/*.ipr
+cctv/out/
+!cctv/src/main/**/out/
+!cctv/src/test/**/out/
+
+### NetBeans ###
+cctv/nbproject/private/
+cctv/nbbuild/
+cctv/dist/
+cctv/nbdist/
+cctv/.nb-gradle/
+
+### VS Code ###
+cctv/.vscode/
+
+# Gradle 관련
+cctv/.gradle/
+
+# IntelliJ IDEA 관련
+cctv/.idea/
+
+# 빌드 결과물
+cctv/out/
+
+# 로그 파일 및 임시 파일
+cctv/*.log
+cctv/*.tmp
+cctv/*.swp
+
+# Gradle Wrapper 파일 포함
+!cctv/gradle/wrapper/gradle-wrapper.jar
+!cctv/gradle/wrapper/gradle-wrapper.properties
+
+# 제외할 테스트 파일
+cctv/src/test/
+
+
+.idea/
+*.iml
+
+cctv/src/main/resources/application.properties
+*.DS_Store

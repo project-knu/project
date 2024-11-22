@@ -1,0 +1,60 @@
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/b
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+
+
+
+# Gradle 관련
+.gradle/
+
+# IntelliJ IDEA 관련
+.idea/
+
+# 빌드 결과물
+out/
+
+# 로그 파일 및 임시 파일
+*.log
+*.tmp
+*.swp
+
+!gradle/wrapper/gradle-wrapper.jar   # Gradle Wrapper JAR 파일은 포함
+!gradle/wrapper/gradle-wrapper.properties  # Gradle Wrapper 설정 파일은 포함
+
+# 제외할 테스트 파일
+src/test/

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="header">
+
+            <div class="logo">
+                <img src="" alt="logo" class="logo-img">
+                <p class="logo-letter">Title</p>
+            </div>
+        
+            <button type="button" class="login" onclick="location.href='./login.html'">로그인</button>
+
+        </div>
+
+        <div class="contents">
+
+            <div class="search-area">
+
+                <div class="search"></div>  <!--검색 파트 구현 필요 -->
+                
+                <div class="calendar">
+
+                    <div class="calendar-header">
+                        <button id="prev"><img src="assets/prev-icon.png" alt=""></button>
+                        <span id="monthYear"></span>
+                        <button id="next"><img src="assets/next-icon.png" alt=""></button>
+                    </div>
+
+                    <table id="calendarTable">
+                        <thead>
+                            <tr>
+                                <th>S</th>
+                                <th>M</th>
+                                <th>T</th>
+                                <th>W</th>
+                                <th>T</th>
+                                <th>F</th>
+                                <th>S</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+        
+                </div>    
+            </div>
+
+            <div class="video-area">
+
+                <div class="today-record">
+
+                    <div class="video-first">
+                        <p class="video-title">오늘의 기록</p>
+                        <div class="video-button">
+                            <a class="video-previous"><img src="assets/prev-icon.png" alt=""></a>   <!-- 버튼을 누르면 다음 4개의 영상이 보이도록 구현해야함 -->
+                            <a class="video-next"><img src="assets/next-icon.png" alt=""></a>      <!-- 버튼을 누르면 다음 4개의 영상이 보이도록 구현해야함 -->
+                        </div>
+                    </div>
+
+                    <div class="video-second">
+                        <div class="video" onclick="location.href='./summary.html';" >
+                            <div class="video-img"><img src="" alt="video"></div>
+                            <p class="video-date">2024/10/02/수요일</p>
+                            <p class="video-summary">남성이 넘어지는 영상</p>
+                            <p class="video-description">한국어 더미 텍스트 예시입니다. 이 문장은 독자가 텍스트의 형태나 레이아웃을 확인할 수 있도록 무작위로 생성된...</p>
+                        </div>
+
+                        <div class="video" onclick="location.href='./summary.html';" >
+                            <div class="video-img"><img src="" alt="video"></div>
+                            <p class="video-date">2024/10/02/수요일</p>
+                            <p class="video-summary">남성이 넘어지는 영상</p>
+                            <p class="video-description">한국어 더미 텍스트 예시입니다. 이 문장은 독자가 텍스트의 형태나 레이아웃을 확인할 수 있도록 무작위로 생성된...</p>
+                        </div>
+
+                        <div class="video" onclick="location.href='./summary.html';" >
+                            <div class="video-img"><img src="" alt="video"></div>
+                            <p class="video-date">2024/10/02/수요일</p>
+                            <p class="video-summary">남성이 넘어지는 영상</p>
+                            <p class="video-description">한국어 더미 텍스트 예시입니다. 이 문장은 독자가 텍스트의 형태나 레이아웃을 확인할 수 있도록 무작위로 생성된...</p>
+                        </div>
+                        
+                        <div class="video" onclick="location.href='./summary.html';" >
+                            <div class="video-img"><img src="" alt="video"></div>
+                            <p class="video-date">2024/10/02/수요일</p>
+                            <p class="video-summary">남성이 넘어지는 영상</p>
+                            <p class="video-description">한국어 더미 텍스트 예시입니다. 이 문장은 독자가 텍스트의 형태나 레이아웃을 확인할 수 있도록 무작위로 생성된...</p>
+                        </div>
+                        
+                        <div class="video" onclick="location.href='./summary.html';" >
+                            <div class="video-img"><img src="" alt="video"></div>
+                            <p class="video-date">2024/10/02/수요일</p>
+                            <p class="video-summary">남성이 넘어지는 영상</p>
+                            <p class="video-description">한국어 더미 텍스트 예시입니다. 이 문장은 독자가 텍스트의 형태나 레이아웃을 확인할 수 있도록 무작위로 생성된...</p>
+                        </div>                        
+
+                    </div>
+
+                </div>
+
+                <div class="lastWeek-record">
+                    
+                    <div class="video-first">
+                        <p class="video-title">지난주 기록</p>
+                        <div class="video-button">
+                            <a class="video-previous"><img src="assets/prev-icon.png" alt=""></a>  <!-- 버튼을 누르면 다음 4개의 영상이 보이도록 구현해야함 -->
+                            <a class="video-next"><img src="assets/next-icon.png" alt=""></a>       <!-- 버튼을 누르면 다음 4개의 영상이 보이도록 구현해야함 -->
+                        </div>
+                    </div>
+
+                    <div class="video-second">
+                        <div class="video" onclick="location.href='./summary.html';" >
+                            <div class="video-img"><img src="" alt="video"></div>
+                            <p class="video-date">2024/10/02/수요일</p>
+                            <p class="video-summary">남성이 넘어지는 영상</p>
+                            <p class="video-description">한국어 더미 텍스트 예시입니다. 이 문장은 독자가 텍스트의 형태나 레이아웃을 확인할 수 있도록 무작위로 생성된...</p>
+                        </div>
+
+                        <div class="video" onclick="location.href='./summary.html';" >
+                            <div class="video-img"><img src="" alt="video"></div>
+                            <p class="video-date">2024/10/02/수요일</p>
+                            <p class="video-summary">남성이 넘어지는 영상</p>
+                            <p class="video-description">한국어 더미 텍스트 예시입니다. 이 문장은 독자가 텍스트의 형태나 레이아웃을 확인할 수 있도록 무작위로 생성된...</p>
+                        </div>
+
+                        <div class="video" onclick="location.href='./summary.html';" >
+                            <div class="video-img"><img src="" alt="video"></div>
+                            <p class="video-date">2024/10/02/수요일</p>
+                            <p class="video-summary">남성이 넘어지는 영상</p>
+                            <p class="video-description">한국어 더미 텍스트 예시입니다. 이 문장은 독자가 텍스트의 형태나 레이아웃을 확인할 수 있도록 무작위로 생성된...</p>
+                        </div>
+                        
+                        <div class="video" onclick="location.href='./summary.html';" >
+                            <div class="video-img"><img src="" alt="video"></div>
+                            <p class="video-date">2024/10/02/수요일</p>
+                            <p class="video-summary">남성이 넘어지는 영상</p>
+                            <p class="video-description">한국어 더미 텍스트 예시입니다. 이 문장은 독자가 텍스트의 형태나 레이아웃을 확인할 수 있도록 무작위로 생성된...</p>
+                        </div>
+                        
+                        <div class="video" onclick="location.href='./summary.html';" >
+                            <div class="video-img"><img src="" alt="video"></div>
+                            <p class="video-date">2024/10/02/수요일</p>
+                            <p class="video-summary">남성이 넘어지는 영상</p>
+                            <p class="video-description">한국어 더미 텍스트 예시입니다. 이 문장은 독자가 텍스트의 형태나 레이아웃을 확인할 수 있도록 무작위로 생성된...</p>
+                        </div>                        
+
+                    </div>
+
+                </div>
+
+                <div class="old-record">
+                    
+                    <div class="video-first">
+                        <p class="video-title">오래된 기록</p>
+                        <div class="video-button">
+                            <a class="video-previous"><img src="assets/prev-icon.png" alt=""></a>   <!-- 버튼을 누르면 다음 4개의 영상이 보이도록 구현해야함 -->
+                            <a class="video-next"><img src="assets/next-icon.png" alt=""></a>       <!-- 버튼을 누르면 다음 4개의 영상이 보이도록 구현해야함 -->
+                        </div>
+                    </div>
+
+                    <div class="video-second">
+                        <div class="video" onclick="location.href='./summary.html';" >
+                            <div class="video-img"><img src="" alt="video"></div>
+                            <p class="video-date">2024/10/02/수요일</p>
+                            <p class="video-summary">남성이 넘어지는 영상</p>
+                            <p class="video-description">한국어 더미 텍스트 예시입니다. 이 문장은 독자가 텍스트의 형태나 레이아웃을 확인할 수 있도록 무작위로 생성된...</p>
+                        </div>
+
+                        <div class="video" onclick="location.href='./summary.html';" >
+                            <div class="video-img"><img src="" alt="video"></div>
+                            <p class="video-date">2024/10/02/수요일</p>
+                            <p class="video-summary">남성이 넘어지는 영상</p>
+                            <p class="video-description">한국어 더미 텍스트 예시입니다. 이 문장은 독자가 텍스트의 형태나 레이아웃을 확인할 수 있도록 무작위로 생성된...</p>
+                        </div>
+
+                        <div class="video" onclick="location.href='./summary.html';" >
+                            <div class="video-img"><img src="" alt="video"></div>
+                            <p class="video-date">2024/10/02/수요일</p>
+                            <p class="video-summary">남성이 넘어지는 영상</p>
+                            <p class="video-description">한국어 더미 텍스트 예시입니다. 이 문장은 독자가 텍스트의 형태나 레이아웃을 확인할 수 있도록 무작위로 생성된...</p>
+                        </div>
+                        
+                        <div class="video" onclick="location.href='./summary.html';" >
+                            <div class="video-img"><img src="" alt="video"></div>
+                            <p class="video-date">2024/10/02/수요일</p>
+                            <p class="video-summary">남성이 넘어지는 영상</p>
+                            <p class="video-description">한국어 더미 텍스트 예시입니다. 이 문장은 독자가 텍스트의 형태나 레이아웃을 확인할 수 있도록 무작위로 생성된...</p>
+                        </div>
+                        
+                        <div class="video" onclick="location.href='./summary.html';" >
+                            <div class="video-img"><img src="" alt="video"></div>
+                            <p class="video-date">2024/10/02/수요일</p>
+                            <p class="video-summary">남성이 넘어지는 영상</p>
+                            <p class="video-description">한국어 더미 텍스트 예시입니다. 이 문장은 독자가 텍스트의 형태나 레이아웃을 확인할 수 있도록 무작위로 생성된...</p>
+                        </div>                        
+
+                    </div>
+
+                </div>
+
+            </div>
+
+    </div>
+
+    <script src="./js/calendar.js"></script>
+
+</body>
+</html>
