@@ -59,9 +59,9 @@ body {
 
 /*---------------------2 단계-------------------------*/
 
-.logo {
-    display: flex;
-    align-items: center;
+.logo-letter {
+    font-size: 24px;
+    font-weight: bold;
 }
 
 .login {
@@ -92,7 +92,7 @@ body {
 
 .home {
     /*레이아웃*/
-    width: 128px;
+    width: 200px;
     height: 26px;
 
 
@@ -194,47 +194,34 @@ body {
     padding: 0;
 }
 
-.logo-letter {
-    font-family: Pretendard;
-    font-size: 24px;
-    font-weight: 600;
-    line-height: 22px;
-    letter-spacing: -0.01em;
-    text-align: left;
-    color: black;
+#save-title {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
 }
 
-.login:hover {
-    background-color: #f0f0f0;
-    border: 1px solid #007bff;
+#cancel-title {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
 }
 
-.video:hover {
-    border: 1px solid #007bff;
+#save-content {
+    padding: 2px 4px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
 }
 
-.summary-title:hover {
-    border: 1px solid #007bff;
+#cancel-content {
+    padding: 2px 4px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
 }
-
-.summary-date:hover {
-    border: 1px solid #007bff;
-}
-
-.summary-content:hover {
-    border: 1px solid #007bff;
-}
-
-.summary-create-date:hover {
-    border: 1px solid #007bff;
-}
-
-.summary-log:hover {
-    border: 1px solid #007bff;
-}
-
-.summary-location:hover {
-    border: 1px solid #007bff;
-}
-
-

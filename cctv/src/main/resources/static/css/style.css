@@ -55,9 +55,9 @@ body {
 
 /*------------------2 단계 레이아웃----------------------*/
 
-.logo {
-    display: flex;
-    align-items: center;
+.logo-letter {
+    font-size: 24px;
+    font-weight: bold;
 }
 
 .login {

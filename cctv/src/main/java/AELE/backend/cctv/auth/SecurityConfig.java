@@ -32,7 +32,7 @@ public class SecurityConfig {
 
         //
         http.authorizeHttpRequests((authorize) ->
-                authorize.requestMatchers("/", "/login.html").permitAll().anyRequest().authenticated())
+                authorize.requestMatchers("/", "/login.html", "/css/*", "/assets/*").permitAll().anyRequest().authenticated())
                         .oauth2Login((oauth2) -> oauth2.loginPage("/login.html")
                                 .userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService))// 커스텀 OAuth2UserService 등록 + 이때 데이터 베이스 저장도 같이 진행하도록 함
                                 //.successHandler(successHandler) // 성공 핸들러 등록했으니
