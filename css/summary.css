@@ -1,0 +1,227 @@
+/*------------------초기 세팅------------------------------*/
+
+* {
+    font-family: pretendard;    /*font 설정*/
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    height: 100%;
+}
+
+/*---------------------1 단계-------------------------*/
+
+.header {
+    /*레이아웃*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+
+    border-bottom: 1px solid #D9D9D9;
+
+    z-index: 10;
+    background-color: white;
+
+
+    /*하위 레이아웃*/
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.summary-area {
+
+    /*레이아웃*/
+    position: absolute;
+    top: 64px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-y: auto;
+    z-index: 1;
+
+    width: 100%;
+    height: 150%;
+
+    /*하위 레이아웃*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*---------------------2 단계-------------------------*/
+
+.logo-letter {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.login {
+
+    /*레이아웃*/
+    padding: 8px 20px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+
+    /*글씨*/
+    font-family: SUIT Variable;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: black;
+}
+
+.home-div {
+    width: 716px;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 30px;
+}
+
+.home {
+    /*레이아웃*/
+    width: 128px;
+    height: 26px;
+
+
+    /*폰트*/
+    color: black;
+    text-decoration: none;
+    font-family: Pretendard;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+
+.video {
+    border-radius: 20px;
+    padding: 10px;
+    margin: 10px;
+    background-color:#D9D9D9;
+
+    width: 716px;
+    height: 312px;
+}
+
+.summary-div {
+    border-radius: 20px;
+    padding-left: 20px;
+    margin: 10px;
+    background-color: #FCFBFB;
+
+    width: 716px;
+    height: 92px;
+
+    margin-bottom: 10px;
+}
+
+.summary-content {
+    height: 158px;
+    display: flex;
+    flex-direction: column;
+}
+
+.summary-log {
+    height: 200px;
+}
+
+/*---------------------3 단계-------------------------*/
+
+.summary-p {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.log {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.input-button {
+    display: flex;
+    gap: 0;
+}
+
+.input-button-textarea {
+    display: flex;
+    flex: 1;
+}
+
+.summary-text {
+    flex: 1;
+    border: none;
+    padding: 5px;
+    background-color: #FCFBFB;
+    height: auto;
+    resize: none;
+
+    font-size: 16px;
+}
+
+
+.summary-submit {
+    background-color: #FCFBFB;
+    padding: 8px 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.summary-submit-textarea {
+    height: 20%;
+    background-color: #FCFBFB;
+    padding: 8px 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.time .description{
+    margin: 0;
+    padding: 0;
+}
+
+#save-title {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#cancel-title {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#save-content {
+    padding: 2px 4px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#cancel-content {
+    padding: 2px 4px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
