@@ -61,6 +61,7 @@ public class VideoUploadController {
     public String video_metadata_save(@AuthenticationPrincipal OAuth2User principal, @RequestBody Map<String, Object> videoMetadata){//POST로 오는 데이터를 받는 곳, 저장한 곳의 링크 + 올린파일 이름
         String url = (String) videoMetadata.get("url");
         String file_name = (String) videoMetadata.get("file_name");
+        String location = (String) videoMetadata.get("location");
 
         String email = principal.getAttribute("email");//로그인한 유저 정보(email) 가져오고
         Optional<User> user = userRepository.findByEmail(email);// 그걸로 data base에서 가져오고
@@ -72,7 +73,7 @@ public class VideoUploadController {
         System.out.println("url : " + url + " name : " + file_name);//출력 한번 해보기
 
         //이렇게 굳이 email로 안하고 id로 저장하는 이유는, 한번 데이터 베이스 뒤지는거에 비해서 데이터의 무결성이 올라가기 때문
-        Video video = new Video(url,file_name,user.get().getId());
+        Video video = new Video(url,file_name,user.get().getId(), location);
         videoRepository.save(video); // 이렇게 기존 video database에 있는지 없는지 check 안 하는 presigned를 발급할 때, 이미 이러한 이름이 없다는 것을 확인 했기 때문입니다
 
 

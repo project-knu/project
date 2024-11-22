@@ -30,7 +30,7 @@ public class VideoDetailDTO {
                 .name(v.getName())
                 .url(v.getUrl())
                 .createdAt(v.getCreatedAt())
-                .location("CCTV Location") // cctv 위치 추가 후 수정하기
+                .location(v.getLocation()) // cctv 위치 추가 후 수정하기
                 .summaryContent(vs.getContent())
                 .summaryCreatedAt(vs.getCreatedAt())
                 .summaryModifiedAt(vs.getModifiedAt())

@@ -139,7 +139,11 @@ public class VideoController {
 
 
     @PostMapping("/detail/{videoId}/edit")
-    public ResponseDTO edit(@AuthenticationPrincipal CustomOAuth2User customUser, @PathVariable("videoId") Long videoId, @RequestBody VideoSummaryForm form) {
+    public ResponseDTO edit(@AuthenticationPrincipal CustomOAuth2User customUser, @PathVariable("videoId") Long videoId, @RequestBody VideoSummaryForm form, @RequestParam("type") String type) {
+        if(form.getName().isEmpty() || form.getContent().isEmpty()) {
+            return ResponseDTO.toDTO("error", "not empty");
+        }
+
         User user = customUser.getUser();
         Optional<Video> v = videoRepository.findByIdAndUserIdWithSummary(videoId,user.getId());
         if(v.isEmpty()) {
@@ -148,8 +152,8 @@ public class VideoController {
         Video video = v.get();
         VideoSummary videoSummary = video.getVideoSummary();
 
-        video.update(form.getName());
-        videoSummary.update(form.getContent());
+        if(type.equals("name")) video.update(form.getName());
+        if(type.equals("content")) videoSummary.update(form.getContent());
 
         VideoDetailDTO videoDetailDTO = VideoDetailDTO.toDTO(video, videoSummary, new ArrayList<>());
         return ResponseDTO.toDTO(videoDetailDTO);

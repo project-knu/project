@@ -22,7 +22,11 @@ submit_title.onclick = () => {
         resetButton();
     }
     save_title.onclick = () => {
-        editData();
+        if(!summary_title_edit) {
+            alert("Not Empty Title");
+            return;
+        }
+        editData('name');
         resetButton();
     }
 }
@@ -51,13 +55,17 @@ submit_content.onclick = () => {
         resetButton();
     }
     save_content.onclick = () => {
-        editData();
+        if(!summary_content_edit) {
+            alert("Not Empty Content");
+            return;
+        }
+        editData('content');
         resetButton();
     }
 }
 
-const editData = () => {
-    fetch('http://localhost:8080/detail/'+id+'/edit',{
+const editData = (type) => {
+    fetch(`http://localhost:8080/detail/${id}/edit?type=${type}`,{
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
@@ -69,15 +77,20 @@ const editData = () => {
     })
         .then((response) => response.json())
         .then((body) => {
-            if(body.status == 'error'){
+            if(body.status === 'error'){
                 alert('수정 실패')
-                summary_title_edit.value = original_title;
-                summary_content_edit.value = original_content;
+                if(type === 'name')
+                    summary_title_edit.value = original_title;
+                if(type === 'content')
+                    summary_content_edit.value = original_content;
             } else {
                 alert('수정 성공')
-                summary_title_edit.value = body.data.name;
-                summary_content_edit.value = body.data.summaryContent;
+                if(type === 'name')
+                    summary_title_edit.value = body.data.name;
+                if(type ==='content')
+                    summary_content_edit.value = body.data.summaryContent;
             }
+
         })
 }
 

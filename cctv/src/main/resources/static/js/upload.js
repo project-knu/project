@@ -33,6 +33,10 @@ function uploadFile() {
         alert('파일을 먼저 선택해주세요');
         return;
     }
+    if(!(document.querySelector("#location-input").value)) {
+        alert('위치를 입력해주세요.');
+        return;
+    }
 
     /* //동영상만 올릴 수 있게 일단은 주석처리해서 나중에 살리자
     if (!selectedFile.type.startsWith('video/')) {
@@ -72,7 +76,8 @@ function file_send_sever() {
         },
         body: JSON.stringify({
             url : presignedUrl.split("?")[0],
-            file_name : selectedFile.name
+            file_name : selectedFile.name,
+            location: document.querySelector("#location-input").value
         })
     })
         .then(response => {

@@ -1,7 +1,7 @@
 function template(video) {
     return `
                 <div class="video" onclick="location.href='/summary.html?id=${video.videoId}';" >
-                    <div class="video-img"><img src="" alt="video"></div>
+                    <div class="video-img"><video class="thumbnail" src="${video.url}"></div>
                     <p class="video-date">${video.createdAt.slice(0,10)}</p>
                     <p class="video-summary">${video.name}</p>
                     <p class="video-description">${video.summaryContent.slice(0,30)+"..."}</p>
@@ -20,6 +20,14 @@ function addDays(date, days) {
     new_date.setDate(date.getDate()+days)
     return new_date
 }
+function page_minus(type) {
+    switch (type) {
+        case "today": today_page--; break;
+        case "lastWeek": lastWeek_page--; break;
+        case "old": old_page--; break;
+        case "search": search_page--; break;
+    }
+}
 
 const get_videos = (type, page, keyword, start, end) => { // type('today','lastWeek','old','search')
     let url = `http://localhost:8080/search?p=1&page=${page}&size=5`;
@@ -29,19 +37,25 @@ const get_videos = (type, page, keyword, start, end) => { // type('today','lastW
     fetch(url)
         .then((response) => response.json())
         .then((body) => {
-            if(body.status == 'error') {
+            if(body.status === 'error') {
                 location.replace('http://localhost:8080/login.html')
                 alert(body.message)
             }
             const data = body.data
 
-            const today_record = document.querySelector(`.${type}-record .video-second`)
+            const record = document.querySelector(`.${type}-record .video-second`)
             let videos = "";
-            if(body.size > 0)
-                for(const d of data) videos += template(d);
-            else videos = "No Record";
-
-            today_record.innerHTML = videos;
+            if(body.size === 0 && page > 0) {
+                page_minus(type);
+                alert('마지막 페이지 입니다.');
+            }
+            else if(body.size === 0) { // page === 0
+                record.innerHTML = "No Record"
+            }
+            else {
+                for (const d of data) videos += template(d);
+                record.innerHTML = videos;
+            }
         })
 }
 
@@ -93,8 +107,9 @@ search_previous.onclick = () => { if(search_page > 0) {search_page--; get_search
 search_next.onclick = () => { search_page++; get_search_videos(); }
 
 // 키워드 검색
-const search_button = document.querySelector('.search-button');
-search_button.onclick = () => {
+const search_form = document.querySelector('.search');
+search_form.onsubmit = (e) => {
+    e.preventDefault();
     search_page = 0;
     get_search_videos();
 }
