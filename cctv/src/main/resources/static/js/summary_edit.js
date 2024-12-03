@@ -65,7 +65,7 @@ submit_content.onclick = () => {
 }
 
 const editData = (type) => {
-    fetch(`http://localhost:8080/detail/${id}/edit?type=${type}`,{
+    fetch(`/detail/${id}/edit?type=${type}`,{
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
@@ -92,5 +92,38 @@ const editData = (type) => {
             }
 
         })
+}
+
+document.querySelector(".summary-create-button").onclick = () => {
+    fetch(`https://0ad6-3-37-213-23.ngrok-free.app/data/`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            "mode": "no-cors"
+        },
+        body: JSON.stringify({
+            https_url: document.querySelector('.video').getAttribute('src')
+        })
+    })
+        .then((response) => response.json())
+        .then((body) => {
+            summary_content_edit.value = body.summary;
+            editData('name');
+            editLogs(body.message);
+        })
+}
+
+function editLogs(logList) {
+    const list = logList.split('.,');
+    const summary_log_content = document.querySelector(".summary-log-content")
+    let logs = "";
+    for(const log of list) {
+        logs += `
+                    <div class="log">
+                        <p class="description">${log}</p>
+                    </div>
+                `;
+    }
+    summary_log_content.innerHTML = logs;
 }
 

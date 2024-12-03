@@ -5,12 +5,12 @@ function T_remove(time) {
 let query = window.location.search;
 let param = new URLSearchParams(query);
 let id = param.get('id');
-fetch("http://localhost:8080/detail/"+id)
+fetch("/detail/"+id)
     .then((response) => response.json())
     .then((body) => {
 
         if(body.status == 'error') {
-            location.replace('http://localhost:8080/index.html')
+            location.replace('/index.html')
             alert(body.message)
         }
         const data = body.data

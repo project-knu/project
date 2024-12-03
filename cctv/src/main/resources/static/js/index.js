@@ -30,7 +30,7 @@ function page_minus(type) {
 }
 
 const get_videos = (type, page, keyword, start, end) => { // type('today','lastWeek','old','search')
-    let url = `http://localhost:8080/search?p=1&page=${page}&size=5`;
+    let url = `/search?p=1&page=${page}&size=5`;
     if(keyword) url += `&keyword=${keyword}`;
     if(start) url += `&start=${start}`;
     if(end) url += `&end=${end}`;
@@ -38,7 +38,7 @@ const get_videos = (type, page, keyword, start, end) => { // type('today','lastW
         .then((response) => response.json())
         .then((body) => {
             if(body.status === 'error') {
-                location.replace('http://localhost:8080/login.html')
+                location.replace('/login.html')
                 alert(body.message)
             }
             const data = body.data
